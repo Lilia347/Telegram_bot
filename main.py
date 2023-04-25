@@ -55,8 +55,7 @@ async def country_choice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         for x in get_all_countries()
     ]
     await update.message.reply_text(
-        "Отлично, идем дальше, теперь выбери страну производства \n"
-        "также можешь отправить команду /skip_country, чтобы пропустить этот параметр",
+        "Отлично, идем дальше, теперь выбери страну производства \n",
         reply_markup=ReplyKeyboardMarkup(
             country_choices_keyboard,
             one_time_keyboard=True,
@@ -114,13 +113,13 @@ async def get_predict(update, context):
         return ConversationHandler.END
 
 
-async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+'''async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user = update.message.from_user
     await update.message.reply_text(
         "Пока, надеюсь вернешься к нам снова", reply_markup=ReplyKeyboardRemove()
     )
 
-    return ConversationHandler.END
+    return ConversationHandler.END'''
 
 
 def main() -> None:
@@ -138,7 +137,6 @@ def main() -> None:
             YEAR: [MessageHandler(filters.Text(get_all_countries()), year_choice)],
             PREDICT: [MessageHandler(filters.Text(), get_predict)],
         },
-        fallbacks=[CommandHandler("cancel", cancel)],
     )
 
     application.add_handler(conv_handler)
